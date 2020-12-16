@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { JogadoresModule } from './jogadores/jogadores.module';
 import { MongooseModule } from '@nestjs/mongoose';
+import { CategoriasModule } from './categorias/categorias.module';
 
 
 
@@ -12,7 +13,8 @@ import { MongooseModule } from '@nestjs/mongoose';
       useUnifiedTopology: true, 
       useFindAndModify: false
     }),
-    JogadoresModule
+    JogadoresModule,
+    CategoriasModule
   ],
   controllers: [],
   providers: [],

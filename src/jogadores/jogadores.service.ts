@@ -4,6 +4,7 @@ import { Jogador } from './interfaces/jogador.interface';
 import { v4 as uuidv4 } from 'uuid';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { AtualizarJogadorDto } from './dto/atualizar-jogador.dto';
 
 @Injectable()
 export class JogadoresService {
@@ -32,7 +33,7 @@ export class JogadoresService {
 
 
   }
-  async atualizarJogador( _id: string, criarJogadorDto: CriarJogadorDto ):Promise<void>
+  async atualizarJogador( _id: string, criarJogadorDto: AtualizarJogadorDto ):Promise<void>
   {
     
 
