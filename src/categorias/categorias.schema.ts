@@ -7,7 +7,8 @@ export const CategoriaSchema = new mongoose.Schema({
   eventos: [
     {
       nome: { type:String },
-      operacao: { type:String }
+      operacao: { type:String },
+      valor: { type: Number}
     }
   ],
   jogadores: [
