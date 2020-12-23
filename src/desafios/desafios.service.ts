@@ -1,10 +1,17 @@
-import { BadRequestException, Injectable, Logger } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { promises } from 'fs';
 import { Model } from 'mongoose';
 import { join } from 'path';
 import { CategoriasService } from 'src/categorias/categorias.service';
 import { JogadoresService } from 'src/jogadores/jogadores.service';
 import { DesafioStatus } from './desafio-status.enum';
+import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
 import { CriarDesafioDto } from './dtos/criar-desafio.dto';
 import { Desafio } from './interfaces/desafio.interface';
 
@@ -85,6 +92,30 @@ export class DesafiosService {
       .populate('solicitante')
       .populate('jogadores')
       .populate('partida')
+      .exec();
+  }
+
+  async atualizarDesafio(
+    _id: string,
+    atualizarDesafioDto: AtualizarDesafioDto,
+  ): Promise<void> {
+    const desafioEncontrado = await this.desafioModel.findById(_id).exec();
+
+    if (!desafioEncontrado) {
+      throw new NotFoundException(`Desafio ${_id} não cadastrado!`);
+    }
+
+    /*
+        Atualizaremos a data da resposta quando o status do desafio vier preenchido 
+        */
+    if (atualizarDesafioDto.status) {
+      desafioEncontrado.dataHoraResposta = new Date();
+    }
+    desafioEncontrado.status = atualizarDesafioDto.status;
+    desafioEncontrado.dataHoraDesafio = atualizarDesafioDto.dataHoraDesafio;
+
+    await this.desafioModel
+      .findOneAndUpdate({ _id }, { $set: desafioEncontrado })
       .exec();
   }
 }

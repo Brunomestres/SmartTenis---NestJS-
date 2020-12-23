@@ -3,7 +3,7 @@ import { Jogador } from 'src/jogadores/interfaces/jogador.interface';
 import { DesafioStatus } from '../desafio-status.enum';
 
 export interface Desafio extends Document {
-  dataHora: Date;
+  dataHoraDesafio: Date;
   status: DesafioStatus;
   dataHoraSolicitacao: Date;
   dataHoraResposta: Date;

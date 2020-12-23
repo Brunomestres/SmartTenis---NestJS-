@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 
 export const DesafioSchema = new mongoose.Schema(
   {
-    dataHora: { type: Date },
+    dataHoraDesafio: { type: Date },
     status: { type: String },
     dataHoraSolicitacao: { type: Date },
     dataHoraResposta: { type: Date },
