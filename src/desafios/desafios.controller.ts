@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Logger,
   Param,
@@ -11,6 +12,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { DesafiosService } from './desafios.service';
+import { AtribuirDesafioPartidaDto } from './dtos/atribuir-desafio-partida.dto';
 import { AtualizarDesafioDto } from './dtos/atualizar-desafio.dto';
 import { CriarDesafioDto } from './dtos/criar-desafio.dto';
 import { Desafio } from './interfaces/desafio.interface';
@@ -43,5 +45,18 @@ export class DesafiosController {
     @Param('desafio') _id: string,
   ): Promise<void> {
     await this.desafioService.atualizarDesafio(_id, atualizarDesafioDto);
+  }
+
+  @Post('/:desafio/partida')
+  async atribuirPartida(
+    @Body(ValidationPipe) atribuirPartidaDto: AtribuirDesafioPartidaDto,
+    @Param('desafio') _id: string,
+  ): Promise<void> {
+    await this.desafioService.atribuirPartida(_id, atribuirPartidaDto);
+  }
+
+  @Delete('/:_id')
+  async deletarDesafio(@Param('_id') _id: string): Promise<void> {
+    await this.desafioService.deletarDesafio(_id);
   }
 }
